@@ -24,6 +24,11 @@ provider:
   timeout: 10 # the timeout is 10 seconds (default is 6 seconds)
   stage: dev
   region: us-east-1
+  environment: 
+    DB: ${file(./serverless.env.yml):${opt:stage}.DB}
+    AWS_ACCESS_KEY_ID: ${file(./serverless.env.yml):${opt:stage}.AWS_ACCESS_KEY_ID}
+    AWS_SECRET_ACCESS_KEY: ${file(./serverless.env.yml):${opt:stage}.AWS_SECRET_ACCESS_KEY}
+
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -56,28 +61,28 @@ provider:
 
 functions:
   create:
-    handler: handler.create # point to exported create function in handler.js
+    handler: src/create.handler # point to exported create function in handler.js
     events:
       - http:
           path: notes # path will be domain.name.com/dev/notes
           method: post
           cors: true
   getOne:
-    handler: handler.getOne
+    handler: src/getOne.handler
     events:
       - http:
           path: notes/{id} # path will be domain.name.com/dev/notes/1
           method: get
           cors: true
   getAll:
-    handler: handler.getAll # path will be domain.name.com/dev/notes
+    handler: src/getAll.handler # path will be domain.name.com/dev/notes
     events:
      - http:
          path: notes
          method: get
          cors: true
   update:
-    handler: handler.update # path will be domain.name.com/dev/notes/1
+    handler: src/update.handler # path will be domain.name.com/dev/notes/1
     events:
      - http:
          path: notes/{id}
