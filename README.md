@@ -15,5 +15,3 @@ What did I learn through this project :
 ..* AMs steps for creating lambda function through yml file 
 ..* AWS API Gateway
 
-Under Working ....
-===================
